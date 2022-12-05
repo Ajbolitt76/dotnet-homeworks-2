@@ -11,18 +11,18 @@ namespace Hw13;
 [MeanColumn]
 [StdDevColumn]
 [ExcludeFromCodeCoverage]
+[ShortRunJob]
 public class MemoryTests
 {
     private MethodsForBenchmark _benchmarkMethod = null!;
-    private string _testString = null!;
+    private int _testString = 1000;
     private static MethodInfo? _reflectionMethod;
         
     [GlobalSetup]
     public void Setup()
     {
-        _benchmarkMethod = new MethodsForBenchmark();
-        _testString = "string";
-        _reflectionMethod = typeof(MemoryTests).GetMethod("Reflection");			
+        _benchmarkMethod = new MethodsForBenchmark2();
+        _reflectionMethod = typeof(MethodsForBenchmark2).GetMethod(nameof(MethodsForBenchmark2.Reflection));			
     }
 
     [Benchmark(Description = "Simple")]
@@ -46,7 +46,7 @@ public class MemoryTests
     [Benchmark(Description = "Generic")]
     public void TestGenericMethod()
     {
-        _benchmarkMethod.Generic<string>(_testString);
+        _benchmarkMethod.Generic(_testString);
     }
         
     [Benchmark(Description = "Dynamic")]

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using JetBrains.dotMemoryUnit;
@@ -9,16 +11,17 @@ using Xunit.Abstractions;
 
 namespace Hw13.Tests;
 
-public class MemoryTest : IClassFixture<WebApplicationFactory<MemoryTest>>
+public class MemoryTest : IClassFixture<CustomWebApplicationFactory>
     // TODO: replace MemoryTest with the right generic argument
 {
     private readonly HttpClient _client;
     private readonly ITestOutputHelper _output;
 
-    public MemoryTest(WebApplicationFactory<MemoryTest> factory, ITestOutputHelper output)
+    public MemoryTest(CustomWebApplicationFactory factory, ITestOutputHelper output)
     {
         _output = output;
         DotMemoryUnitTestOutput.SetOutputMethod(_output.WriteLine);
+        
         _client = factory.CreateClient();
     }
 
@@ -35,10 +38,10 @@ public class MemoryTest : IClassFixture<WebApplicationFactory<MemoryTest>>
             foreach (var element in list)
             {
                 var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Calculator/CalculateMathExpression");
-                var formModel = new Dictionary<string, string> { { "str", element } };
+                var formModel = new Dictionary<string, string> { { "expression", element } };
                 postRequest.Content = new FormUrlEncodedContent(formModel);
+                
                 _client.SendAsync(postRequest).GetAwaiter().GetResult();
-
                 size += Encoding.UTF8.GetBytes(element).Length;
             }
         }

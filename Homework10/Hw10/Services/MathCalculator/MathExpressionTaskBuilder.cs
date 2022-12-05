@@ -23,7 +23,7 @@ public static class MathExpressionTaskBuilder
                     {
                         await Task.WhenAll(dependsOn.Select(d => lazy[d].Value));
                         await Task.Yield();
-                        await Task.Delay(1000);
+                        // await Task.Delay(1000);
                     }
 
                     return current switch
