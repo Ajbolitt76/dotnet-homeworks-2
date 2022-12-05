@@ -14,7 +14,7 @@ public class CalculationTimeTests: IClassFixture<TestApplicationFactory>
         _client = fixture.CreateClient();
     }
     
-    [Theory(Skip = "HW13")]
+    [Theory]
     [InlineData("2 + 3 + 4 + 6", 2990, 4000)]
     [InlineData("(2 * 3 + 3 * 3) * (5 / 5 + 6 / 6)", 2990, 4000)]
     [InlineData("(2 + 3) / 12 * 7 + 8 * 9", 3990, 5000)]
@@ -28,7 +28,7 @@ public class CalculationTimeTests: IClassFixture<TestApplicationFactory>
             UserMessagerForTest.WaitingTimeIsMore(maxExpectedTime, executionTime));
     }
     
-    [Theory(Skip = "HW13")]
+    [Theory]
     [InlineData("1 + 1 + 1 + 1")]
     [InlineData("2 * (3 + 2) / 2")]
     [InlineData("2 * 3 / 1 * 5 * 6")]

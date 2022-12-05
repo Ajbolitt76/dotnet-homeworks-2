@@ -12,6 +12,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Hw10.Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        MathExpressionTaskBuilder.WaitSecond = false;
         builder.ConfigureServices((context, collection) =>
         {
             collection.AddSingleton<IMathCalculatorService>(s =>

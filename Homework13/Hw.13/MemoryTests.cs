@@ -11,7 +11,6 @@ namespace Hw13;
 [MeanColumn]
 [StdDevColumn]
 [ExcludeFromCodeCoverage]
-[ShortRunJob]
 public class MemoryTests
 {
     private MethodsForBenchmark _benchmarkMethod = null!;
