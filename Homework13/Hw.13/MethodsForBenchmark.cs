@@ -1,14 +1,33 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Hw13;
 
 [ExcludeFromCodeCoverage]
 public class MethodsForBenchmark
 {
-    public string Simple(string s) => s + s;
-    public virtual string Virtual(string s) => s + s;
-    public static string Static(string s) => s + s;
-    public string Generic<T>(T s) => s!.ToString() + s;
-    public string Dynamic(dynamic s) => s.ToString() + s;
-    public string Reflection(string s) => s + s;
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public int Simple(int s) => s + s;
+    
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public virtual int Virtual(int s) => s + s;
+    
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static int Static(int s) => s + s;
+    
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public T Generic<T>(T s) => s;
+    
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public int Dynamic(dynamic s) => s + s;
+    
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public int Reflection(int s) => s + s;
+}
+
+[ExcludeFromCodeCoverage]
+public class MethodsForBenchmark2 : MethodsForBenchmark
+{
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public override int Virtual(int s) => s + s;
 }

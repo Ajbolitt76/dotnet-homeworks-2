@@ -4,6 +4,8 @@ namespace Hw10.Services.MathCalculator;
 
 public static class MathExpressionTaskBuilder
 {
+    public static bool WaitSecond = true;
+    
     public static Task<double> BuildFromExpression(Expression mathExpression)
     {
         var visitor = new MathExpressionVisitor();
@@ -21,9 +23,12 @@ public static class MathExpressionTaskBuilder
                 {
                     if (dependsOn.Length > 0)
                     {
-                        await Task.WhenAll(dependsOn.Select(d => lazy[d].Value));
                         await Task.Yield();
-                        await Task.Delay(1000);
+                        
+                        if(WaitSecond)
+                            await Task.Delay(1000);
+                        
+                        await Task.WhenAll(dependsOn.Select(d => lazy[d].Value));
                     }
 
                     return current switch
